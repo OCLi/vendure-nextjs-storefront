@@ -36,20 +36,21 @@ export const Tooltip: React.FC<{
                             transition={{ duration: 0.1 }}
                             {...layerProps}>
                             <TP size="1.25rem">{text}</TP>
-                            <StyledArrow {...arrowProps} size={6} />
+                            <StyledArrow {...arrowProps as any} size={6} />
                         </StyledTooltip>
                     )}
-                </AnimatePresence>,
+                </AnimatePresence>
             )}
         </>
     );
 };
 
-const StyledArrow = styled(Arrow)``;
+const StyledArrow = styled(Arrow)<{ size: number }>`
+    /* Ваши стили для стрелки */
+`;
 
 const StyledTooltip = styled(motion.div)`
     max-width: 20rem;
-
     display: flex;
     align-items: center;
     justify-content: center;

@@ -56,6 +56,8 @@ const apiFetchVendure =
             })
             .then((response: GraphQLResponse) => {
                 if (response.errors) {
+                    console.error("error: " + JSON.stringify(response.errors));
+
                     throw new GraphQLError(response);
                 }
                 return response.data;

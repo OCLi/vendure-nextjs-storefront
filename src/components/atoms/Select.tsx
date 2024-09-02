@@ -19,12 +19,11 @@ export function Select<T extends string | number>({
         <Main>
             <select
                 value={value || ''}
-                placeholder={t('select-category')}
                 onChange={e => {
                     setValue(e.target.value as T);
                 }}>
                 <option value="" disabled>
-                    Select your option
+                    {t('select-category')}
                 </option>
                 {options?.map(o => (
                     <option value={o.value} key={o.value}>

@@ -3,7 +3,7 @@ import '../styles/global.css';
 import 'keen-slider/keen-slider.min.css';
 import { AppProps } from 'next/app';
 import { appWithTranslation } from 'next-i18next';
-import { Nunito_Sans } from 'next/font/google';
+import { Nunito } from 'next/font/google';
 import { Global, ThemeProvider } from '@emotion/react';
 import { LightTheme } from '@/src/theme';
 import { CartProvider } from '@/src/state/cart';
@@ -12,13 +12,27 @@ import { ProductProvider } from '@/src/state/product';
 import { CollectionProvider } from '@/src/state/collection';
 import { ChannelsProvider } from '../state/channels';
 
-const nunito = Nunito_Sans({ subsets: ['latin'], variable: '--nunito-font' });
+const nunito = Nunito({
+    subsets: ['latin'], // Убедитесь, что указаны необходимые подмножества
+    weight: ['400', '700'], // Добавьте веса шрифта, если это необходимо
+    variable: '--nunito-font',
+});
 
 const App = ({ Component, pageProps }: AppProps) => {
     return (
         <ThemeProvider theme={LightTheme}>
             <ChannelsProvider initialState={{ channel: pageProps.channel, locale: pageProps.locale }}>
-                <Global styles={`body { font-family:${nunito.style.fontFamily}; }`} />
+                {/* Применение шрифта через Global стили */}
+                <Global 
+                    styles={`
+                        :root { 
+                            --nunito-font: ${nunito.style.fontFamily}; 
+                        }
+                        body { 
+                            font-family: var(--nunito-font); 
+                        }
+                    `} 
+                />
                 {/* `checkout` prop should exist only on routes with checkout functionally */}
                 {'checkout' in pageProps ? (
                     <CheckoutProvider initialState={{ checkout: pageProps.checkout }}>
